@@ -30,7 +30,7 @@ export default defineConfig({
         AttestationStation: {
           [chains.optimism.id]: ATTESTATION_STATION_ADDRESS,
           [chains.optimismGoerli.id]: ATTESTATION_STATION_ADDRESS,
-          [chains.foundry.id]: ATTESTATION_STATION_ADDRESS,
+          [chains.foundry.id]: "0x5FbDB2315678afecb367f032d93F642f64180aa3", //ATTESTATION_STATION_ADDRESS,
         },
       },
     }),

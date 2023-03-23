@@ -3,7 +3,7 @@ import { useAccount, useNetwork, useWaitForTransaction } from "wagmi";
 import {
   parseString,
   stringifyAttestationBytes,
-  encodeRawKey,
+  createKey,
 } from "@eth-optimism/atst";
 
 /**
@@ -19,56 +19,44 @@ import {
 /**
  * An example component using the attestation station
  */
-export function Attestooooooor() {
-  /**
-   * @see https://wagmi.sh/docs/hooks/useAccount
-   */
-  const { address } = useAccount();
-  /**
-   * @see https://reactjs.org/docs/hooks-state.html
-   */
-  const [value, setValue] = useState("Hello world");
 
-  /**
-   * The key of the attestation
-   * @see https://www.npmjs.com/package/@eth-optimism/atst
-   */
-  const key = encodeRawKey("hello-world");
-  /**
-   * Value of the attestation
-   * @see https://www.npmjs.com/package/@eth-optimism/atst
-   */
+interface Props {
+  receiver: `0x${string}`;
+  issuer: string;
+  amountUsd: number;
+  event: string;
+  descritpion?: string;
+}
+
+export function Attestooooooor({
+  receiver,
+  issuer,
+  amountUsd,
+  event,
+  descritpion,
+}: Props) {
+  console.log(
+    `receiver ${receiver}; issuer: ${issuer}; amountUsd: ${amountUsd}; event: ${event}`,
+  );
+  const { address } = useAccount();
+  const [value, setValue] = useState<string>(`${issuer}:${amountUsd}`);
+
+  const key = createKey(`bounty.winner.${event}`);
   const newAttestation = stringifyAttestationBytes(value);
 
-  /**
-   * Automatically generated hook to prepare the transaction
-   * @see https://wagmi.sh/react/prepare-hooks/usePrepareContractWrite
-   */
   const { config } = usePrepareAttestationStationAttest({
-    args: [address!, key, newAttestation],
+    args: [receiver, key, newAttestation],
   });
 
-  /**
-   * Automatically generated hook to execute the transaction
-   * @see https://wagmi.sh/react/execute-hooks/useContractWrite
-   */
   const { data, write } = useAttestationStationAttest({
     ...config,
     onSuccess: () => setValue(""),
   });
 
-  /**
-   * Automatically generated hook to read the attestation
-   * @see https://wagmi.sh/react/execute-hooks/useContractRead
-   */
   const { refetch, data: attestation } = useAttestationStationAttestations({
-    args: [address!, address!, key],
+    args: [address!, receiver, key],
   });
 
-  /**
-   * Wagmi hook to wait for the transaction to be complete
-   * @see https://wagmi.sh/docs/hooks/useWaitForTransaction
-   */
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => refetch(),

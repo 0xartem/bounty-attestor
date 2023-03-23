@@ -20,7 +20,13 @@ export function App() {
       {isConnected && (
         <>
           <hr />
-          <Attestooooooor />
+          <Attestooooooor
+            receiver="0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
+            issuer="Optimism"
+            amountUsd={2000}
+            event="Scaling Ethereum 2023"
+            descritpion="Won Optimism Attestation Bounty"
+          />
           <hr />
         </>
       )}
