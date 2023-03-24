@@ -8,7 +8,7 @@ import { chains, client } from "./wagmi";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
-import Home from "./pages";
+import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import AuthorizedAttestation from "./pages/AuthorizedAttestation";
 import SelfAttestation from "./pages/SelfAttestation";
