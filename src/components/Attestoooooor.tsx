@@ -15,33 +15,44 @@ import {
   usePrepareAttestationStationAttest,
   useAttestationStationAttestations,
 } from "../generated";
+import { bountyNameToShortId } from "../utils/bounty-attestors-utils";
 
 /**
  * An example component using the attestation station
  */
 
 interface Props {
-  receiver: `0x${string}`;
-  issuer: string;
-  amountUsd: number;
   event: string;
-  descritpion?: string;
+  issuer: string;
+  bountyName: string;
+  receiver: `0x${string}`;
+  amountUsd: number;
+  winnerRank: number;
+  rewardTx: string;
 }
 
 export function Attestooooooor({
-  receiver,
-  issuer,
-  amountUsd,
   event,
-  descritpion,
+  issuer,
+  bountyName,
+  receiver,
+  amountUsd,
+  winnerRank,
+  rewardTx,
 }: Props) {
-  console.log(
-    `receiver ${receiver}; issuer: ${issuer}; amountUsd: ${amountUsd}; event: ${event}`,
-  );
   const { address } = useAccount();
-  const [value, setValue] = useState<string>(`${issuer}:${amountUsd}`);
 
-  const key = createKey(`bounty.winner.${event}`);
+  const bountyNameId = bountyNameToShortId(bountyName);
+
+  const rawKey = `bounty.winner.${event.replace(/\s/g, "")}.${issuer.replace(
+    /\s/g,
+    "",
+  )}.${bountyNameId}`;
+  const [value, setValue] = useState<string>(
+    `${amountUsd}.${winnerRank}.${rewardTx}`,
+  );
+
+  const key = createKey(rawKey);
   const newAttestation = stringifyAttestationBytes(value);
 
   const { config } = usePrepareAttestationStationAttest({
@@ -68,6 +79,7 @@ export function Attestooooooor({
       <div>
         Current attestation: {attestation ? parseString(attestation) : "none"}
       </div>
+      <div>Current key: {rawKey}</div>
       <input
         disabled={isLoading}
         onChange={(e) => setValue(e.target.value)}
