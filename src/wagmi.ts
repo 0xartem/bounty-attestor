@@ -44,8 +44,7 @@ export { chains };
  * @see https://wagmi.sh/react/connectors
  */
 const { connectors } = getDefaultWallets({
-  appName:
-    "Optimism attestation station + Forge + Wagmi + RainbowKit + Vite App",
+  appName: "Bounty Attestor",
   chains,
 });
 
