@@ -1,4 +1,3 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Outlet } from "react-router-dom";
 import { useAccount } from "wagmi";
 import Header from "./components/header/Header";
@@ -12,10 +11,7 @@ const App = () => {
 
   return (
     <>
-      <h1>Bounty Attestor</h1>
-
-      {/* <Header /> */}
-      <ConnectButton />
+      <Header />
 
       {isConnected && (
         <div>

@@ -1,10 +1,15 @@
 import NavBar from "./NavBar";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Header = () => {
   return (
-    <header className="flex justify-between p-5">
-      <NavBar />
-    </header>
+    <>
+      <h1 className="text-center">Bounty Attestor</h1>
+      <header className="flex justify-between p-5">
+        <NavBar />
+        <ConnectButton />
+      </header>
+    </>
   );
 };
 
