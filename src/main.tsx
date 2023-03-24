@@ -3,9 +3,37 @@ import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { WagmiConfig } from "wagmi";
-
-import { App } from "./App";
 import { chains, client } from "./wagmi";
+
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import App from "./App";
+import Home from "./pages";
+import ErrorPage from "./pages/ErrorPage";
+import AuthorizedAttestation from "./pages/AuthorizedAttestation";
+import SelfAttestation from "./pages/SelfAttestation";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "home", element: <Home /> },
+          {
+            path: "authorized-attestation",
+            element: <AuthorizedAttestation />,
+          },
+          { path: "self-attestation", element: <SelfAttestation /> },
+        ],
+      },
+    ],
+  },
+]);
 
 /**
  * Root providers and initialization of app
@@ -17,7 +45,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiConfig client={client}>
       <RainbowKitProvider chains={chains}>
-        <App />
+        {/* <App /> */}
+        <RouterProvider router={router} />
       </RainbowKitProvider>
     </WagmiConfig>
   </React.StrictMode>,
