@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { ActionFunction, Form, useLoaderData } from "react-router-dom";
-import { BountyAttestor } from "../components";
+import { BountySelfAttestor } from "../components";
 
 interface EventInfo {
   event: string;
@@ -176,7 +176,7 @@ const SelfAttestation = () => {
         </div>
       </Form>
       <hr />
-      <BountyAttestor
+      <BountySelfAttestor
         event={event}
         issuer={issuer}
         bountyName={bountyName}

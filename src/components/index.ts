@@ -1,1 +1,2 @@
-export { BountyAttestor } from "./BountyAttestor";
+export { BountySelfAttestor } from "./BountySelfAttestor";
+export { BountyAuthAttestor } from "./BountyAuthAttestor";

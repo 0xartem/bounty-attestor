@@ -26,7 +26,7 @@ interface Props {
   rewardTx: string;
 }
 
-export const BountyAttestor = ({
+export const BountySelfAttestor = ({
   event,
   issuer,
   bountyName,
