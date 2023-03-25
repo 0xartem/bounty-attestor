@@ -5,8 +5,10 @@
   "scripts": {
     "anvil": "source ./.env && anvil --fork-url $ANVIL_FORK_URL --chain-id $ANVIL_CHAIN_ID",
     "node": "npx hardhat node",
-    "deploy": "source ./.env && forge create contracts/src/AttestationStation.sol:AttestationStation --rpc-url $FORGE_RPC_URL --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --verify",
-    "deploy:local": "source ./.env && forge create contracts/src/AttestationStation.sol:AttestationStation --rpc-url http://127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --legacy",
+    "deploy:attestation": "source ./.env && forge create contracts/src/AttestationStation.sol:AttestationStation --rpc-url $FORGE_RPC_URL --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --verify",
+    "deploy:attestation:local": "source ./.env && forge create contracts/src/AttestationStation.sol:AttestationStation --rpc-url http://127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --legacy",
+    "deploy:bounty": "source ./.env && forge script contracts/script/BountiesAttestor.s.sol:BountiesAttestorScript --rpc-url $FORGE_RPC_URL --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast --verify -vvvv",
+    "deploy:bounty:local": "source ./.env && forge script contracts/script/BountiesAttestor.s.sol:BountiesAttestorScript --rpc-url http://127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --broadcast -vvvv",
     "dev": "npm run wagmi && vite",
     "dev:foundry": "npm run dev & wagmi generate --watch & npm run anvil",
     "dev:hardhat": "npm run dev & wagmi generate --watch & npm run node",

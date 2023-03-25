@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 import { IBountiesAttestor } from "./interfaces/IBountiesAttestor.sol";
 import { IBountiesAccessControl } from "./interfaces/IBountiesAccessControl.sol";
-import { IAttestationStation } from "./interfaces/IAttestationStation.sol";
+import { AttestationStation } from "./AttestationStation.sol";
 
 
 contract BountiesAttestor is IBountiesAttestor, IBountiesAccessControl {
@@ -12,11 +12,11 @@ contract BountiesAttestor is IBountiesAttestor, IBountiesAccessControl {
     mapping(bytes32 => mapping(address => bool)) issuersAccounts;
 
     address public globalAdmin;
-    IAttestationStation public attestationStation;
+    AttestationStation public attestationStation;
 
-    constructor(address _globalAdmin, IAttestationStation _attestationStatoin) {
+    constructor(address _globalAdmin, AttestationStation _attestationStatoin) {
       globalAdmin = _globalAdmin;
-      attestationStation = IAttestationStation(_attestationStatoin);
+      attestationStation = AttestationStation(_attestationStatoin);
     }
 
     function authorizeBountyGroupAccount(bytes32 group, address account) external {
@@ -55,11 +55,7 @@ contract BountiesAttestor is IBountiesAttestor, IBountiesAccessControl {
       if (!isAuthorizedInternal(_groupOrIssuer, msg.sender))
           revert AddressNotAuthorized();
 
-      IAttestationStation.AttestationData[] memory attestations = new IAttestationStation.AttestationData[](1);
-      attestations[0] = IAttestationStation.AttestationData({
-              about: _about,key: _key, val: _val
-      });
-      attestationStation.attest(attestations);
+      attestationStation.attest(_about, _key, _val);
     }
 
     /**
@@ -67,7 +63,7 @@ contract BountiesAttestor is IBountiesAttestor, IBountiesAccessControl {
      *
      * @param _attestations An array of attestation data.
      */
-    function bountyAttest(bytes32 _groupOrIssuer, IAttestationStation.AttestationData[] calldata _attestations) external {
+    function bountyAttest(bytes32 _groupOrIssuer, AttestationStation.AttestationData[] calldata _attestations) external {
       if (!isAuthorizedInternal(_groupOrIssuer, msg.sender))
           revert AddressNotAuthorized();
       attestationStation.attest(_attestations);

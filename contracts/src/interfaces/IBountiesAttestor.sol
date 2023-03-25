@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import { IAttestationStation } from "./IAttestationStation.sol";
+import { AttestationStation } from "../AttestationStation.sol";
 
 interface IBountiesAttestor {
     /**
@@ -23,5 +23,5 @@ interface IBountiesAttestor {
      *
      * @param _attestations An array of attestation data.
      */
-    function bountyAttest(bytes32 _groupOrIssuer, IAttestationStation.AttestationData[] calldata _attestations) external;
+    function bountyAttest(bytes32 _groupOrIssuer, AttestationStation.AttestationData[] calldata _attestations) external;
 }

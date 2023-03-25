@@ -19,8 +19,8 @@ contract AttestationStationScript is Script {
     function setUp() public {}
 
     function run() public {
-        // read DEPLOYER_PRIVATE_KEY from environment variables
-        uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
+        // read FORGE_PRIVATE_KEY from environment variables
+        uint256 deployerPrivateKey = vm.envUint("FORGE_PRIVATE_KEY");
 
         // start broadcast any transaction after this point will be submitted to chain
         vm.startBroadcast(deployerPrivateKey);
