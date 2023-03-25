@@ -15,11 +15,7 @@ import {
   usePrepareAttestationStationAttest,
   useAttestationStationAttestations,
 } from "../generated";
-import { bountyNameToShortId } from "../utils/bounty-attestors-utils";
-
-/**
- * An example component using the attestation station
- */
+import { createRawKey } from "../utils/bounty-attestors-utils";
 
 interface Props {
   event: string;
@@ -27,30 +23,22 @@ interface Props {
   bountyName: string;
   receiver: `0x${string}`;
   amountUsd: number;
-  winnerRank: number;
   rewardTx: string;
 }
 
-export function Attestooooooor({
+export const BountyAttestor = ({
   event,
   issuer,
   bountyName,
   receiver,
   amountUsd,
-  winnerRank,
   rewardTx,
-}: Props) {
+}: Props) => {
   const { address } = useAccount();
 
-  const bountyNameId = bountyNameToShortId(bountyName);
-
-  const rawKey = `bounty.winner.${event.replace(/\s/g, "")}.${issuer.replace(
-    /\s/g,
-    "",
-  )}.${bountyNameId}`;
-  const [value, setValue] = useState<string>(
-    `${amountUsd}.${winnerRank}.${rewardTx}`,
-  );
+  const rawKey = createRawKey(event, issuer, bountyName);
+  const value = `${bountyName}.${amountUsd}.${rewardTx}`;
+  // const [value, setValue] = useState<string>(`${amountUsd}.${rewardTx}`);
 
   const key = createKey(rawKey);
   const newAttestation = stringifyAttestationBytes(value);
@@ -61,12 +49,13 @@ export function Attestooooooor({
 
   const { data, write } = useAttestationStationAttest({
     ...config,
-    onSuccess: () => setValue(""),
+    // onSuccess: () => setValue(""),
   });
 
   const { refetch, data: attestation } = useAttestationStationAttestations({
     args: [address!, receiver, key],
   });
+  console.log("attestation", attestation);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
@@ -75,26 +64,35 @@ export function Attestooooooor({
 
   return (
     <div>
-      <h2>Attestoooooor</h2>
-      <div>
-        Current attestation: {attestation ? parseString(attestation) : "none"}
+      <div className="flex flex-col gap-4">
+        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
+          <div className="card-body">
+            <h2 className="card-title">New Winner Attestation</h2>
+            <p>Current key: {rawKey}</p>
+            <p>Current value: {value}</p>
+            <p>Current receiver: {receiver}</p>
+            <div className="card-actions justify-end">
+              <button
+                className="btn btn-accent"
+                disabled={!write || isLoading}
+                onClick={() => write?.()}
+              >
+                Attest
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
+          <div className="card-body">
+            <h2 className="card-title">Current Attestation</h2>
+            <p>{attestation ? parseString(attestation) : "none"}</p>
+          </div>
+        </div>
       </div>
-      <div>Current key: {rawKey}</div>
-      <input
-        disabled={isLoading}
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-      <button disabled={!write || isLoading} onClick={() => write?.()}>
-        Attest
-      </button>
       {isLoading && <ProcessingMessage hash={data?.hash} />}
-      <div>
-        Gas fee: <span>{config.request?.gasLimit.toString()}</span>
-      </div>
     </div>
   );
-}
+};
 
 function ProcessingMessage({ hash }: { hash?: `0x${string}` }) {
   const { chain } = useNetwork();

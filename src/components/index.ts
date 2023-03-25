@@ -1,1 +1,1 @@
-export { Attestooooooor } from "./Attestoooooor";
+export { BountyAttestor } from "./BountyAttestor";
