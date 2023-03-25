@@ -6,14 +6,11 @@ import {
   createKey,
 } from "@eth-optimism/atst";
 
-/**
- * These react hooks are generated with the wagmi cli via `wagmi generate`
- * @see ROOT/wagmi.config.ts
- */
 import {
-  useAttestationStationAttest,
-  usePrepareAttestationStationAttest,
+  usePrepareBountiesAttestorBountyAttest,
   useAttestationStationAttestations,
+  useBountiesAttestorBountyAttest,
+  bountiesAttestorAddress,
 } from "../generated";
 import { createRawKey } from "../utils/bounty-attestors-utils";
 
@@ -26,7 +23,7 @@ interface Props {
   rewardTx: string;
 }
 
-export const BountyAttestor = ({
+export const BountyAuthAttestor = ({
   event,
   issuer,
   bountyName,
@@ -43,17 +40,17 @@ export const BountyAttestor = ({
   const key = createKey(rawKey);
   const newAttestation = stringifyAttestationBytes(value);
 
-  const { config } = usePrepareAttestationStationAttest({
-    args: [receiver, key, newAttestation],
+  const { config } = usePrepareBountiesAttestorBountyAttest({
+    args: [key, receiver, key, newAttestation],
   });
 
-  const { data, write } = useAttestationStationAttest({
+  const { data, write } = useBountiesAttestorBountyAttest({
     ...config,
     // onSuccess: () => setValue(""),
   });
 
   const { refetch, data: attestation } = useAttestationStationAttestations({
-    args: [address!, receiver, key],
+    args: [bountiesAttestorAddress[31337], receiver, key],
   });
 
   const { isLoading } = useWaitForTransaction({
