@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
 import { BountySelfAttestor } from "../components";

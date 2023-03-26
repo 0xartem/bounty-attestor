@@ -11,8 +11,12 @@ import {
   useAttestationStationAttestations,
   useBountiesAttestorBountyAttest,
   bountiesAttestorAddress,
+  useBountiesAttestorIsAuthorized,
 } from "../generated";
-import { createRawKey } from "../utils/bounty-attestors-utils";
+import {
+  createRawKey,
+  normalizeKeyPart,
+} from "../utils/bounty-attestors-utils";
 
 interface Props {
   event: string;
@@ -32,6 +36,43 @@ export const BountyAuthAttestor = ({
   rewardTx,
 }: Props) => {
   const { address } = useAccount();
+  let authGroupOrIssuer: `0x${string}` | undefined;
+
+  const normalizedEvent = normalizeKeyPart(event);
+  const authGroup = createKey(normalizedEvent);
+  const { data: authorizedEvent } = useBountiesAttestorIsAuthorized({
+    args: [authGroup, address!],
+  });
+  console.log("authorizedEvent", authorizedEvent);
+  console.log("authGroup", authGroup);
+
+  const normalizedIssuer = normalizeKeyPart(issuer);
+  const authIssuer = createKey(normalizedIssuer);
+  const { data: authorizedIssuer } = useBountiesAttestorIsAuthorized({
+    args: [authIssuer, address!],
+  });
+  console.log("authorizedIssuer", authorizedIssuer);
+  console.log("authIssuer", authIssuer);
+
+  if (authorizedEvent) {
+    authGroupOrIssuer = authGroup;
+  } else if (authorizedIssuer) {
+    authGroupOrIssuer = authIssuer;
+  }
+  console.log("authGroupOrIssuer", authGroupOrIssuer);
+
+  if (!authGroupOrIssuer) {
+    return (
+      <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Not Authorized</h2>
+          <p>
+            Current address is not authorized to attest any events or bounties
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const rawKey = createRawKey(event, issuer, bountyName);
   const value = `${bountyName}.${amountUsd}.${rewardTx}`;
@@ -41,7 +82,7 @@ export const BountyAuthAttestor = ({
   const newAttestation = stringifyAttestationBytes(value);
 
   const { config } = usePrepareBountiesAttestorBountyAttest({
-    args: [key, receiver, key, newAttestation],
+    args: [authGroupOrIssuer, receiver, key, newAttestation],
   });
 
   const { data, write } = useBountiesAttestorBountyAttest({
@@ -70,7 +111,7 @@ export const BountyAuthAttestor = ({
             <div className="card-actions justify-end">
               <button
                 className="btn btn-accent"
-                disabled={!write || isLoading}
+                disabled={!authGroupOrIssuer || !write || isLoading}
                 onClick={() => write?.()}
               >
                 Attest

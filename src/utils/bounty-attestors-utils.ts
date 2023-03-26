@@ -10,14 +10,17 @@ export const bountyNameToShortId = (bountyName: string) => {
   return bountyNameHash.substring(2, 6);
 };
 
+export const normalizeKeyPart = (part: string) => {
+  return part.replace(/\s/g, "").toLowerCase();
+};
+
 export const createRawKey = (
   event: string,
   issuer: string,
   bountyName: string,
 ) => {
   const bountyNameId = bountyNameToShortId(bountyName);
-  return `bounty.winner.${event.replace(/\s/g, "")}.${issuer.replace(
-    /\s/g,
-    "",
+  return `bounty.winner.${normalizeKeyPart(event)}.${normalizeKeyPart(
+    issuer,
   )}.${bountyNameId}`;
 };

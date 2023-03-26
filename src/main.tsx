@@ -12,7 +12,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
-import AuthorizedAttestation from "./pages/AuthorizedAttestation";
+import AuthorizedAttestation, {
+  loader as authAttestationLoader,
+} from "./pages/AuthorizedAttestation";
 import SelfAttestation, {
   loader as selfAttestationLoader,
 } from "./pages/SelfAttestation";
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
           {
             path: "authorized-attestation",
             element: <AuthorizedAttestation />,
+            loader: authAttestationLoader,
           },
           {
             path: "self-attestation",
