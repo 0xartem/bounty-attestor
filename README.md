@@ -1,22 +1,90 @@
+<a name="readme-top"></a>
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url] -->
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+<!-- PROJECT LOGO -->
+<br />
 <div align="center">
-  <br />
-  <br />
-  <a href="https://optimism.io"><img alt="Optimism" src="https://raw.githubusercontent.com/ethereum-optimism/brand-kit/main/assets/svg/OPTIMISM-R.svg" width=320></a>
-  <br />
-  <h2><a href="https://optimism.io">Optimism</a> starterkit.</h2>
-  <br />
+
+<h3 align="center">Bounty Attestor</h3>
+
+  <p align="center">
+    Bounty Attestor is built with Optimism Attestation Station to endorse bounty winners
+    <br />
+    <br />
+    <a href="https://bounty-attestor.vercel.app">View Demo</a>
+    ·
+    <a href="https://github.com/0xartem/bounty-attestor/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/0xartem/bounty-attestor/issues">Request Feature</a>
+
+  </p>
 </div>
 
-This is a [Optimism](https://github.com/ethereum-optimism) + [wagmi](https://wagmi.sh) + [Foundry](https://book.getfoundry.sh/) + [Rainbowkit](https://www.rainbowkit.com/) + [Vite](https://vitejs.dev/) project originally bootstrapped with [`create-wagmi`](https://github.com/wagmi-dev/wagmi/tree/main/packages/create-wagmi) built with ❤️ for hackers.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
+<!-- ABOUT THE PROJECT -->
 
-## Who is this for?
+## About The Project
 
-This starter is a great choice for any of the following groups:
+[![Product Name Screen Shot][product-screenshot]](https://bounties.vercel.app)
 
-- Hackers hacking on [Optimism](https://www.optimism.io/)
-- Hackers hacking on the [Attestation Station](https://community.optimism.io/docs/governance/attestation-station/)
-- Hackers interested in using [the most modern and robust web3 full stack development stack](https://twitter.com/gakonst/status/1630038261941796866)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Bounty Attestor
+
+Bounty Attestor aims to create a credible source of reputation verification for winners and participants of bounties and other relevant events on-chain. These reputation attestations will help teams secure future funding and help the future DAO and VC onboarding processes easier.
+How it works: bounty issuers can attest the addresses of the winners, and the winners then can take action, like minting an NFT with the winning details.
+
+[![Solidity][solidity.org]][solidity-url]
+[![Vitejs][Vitejs.dev]][Vite-url]
+[![React][react.js]][react-url]
+[![TailwindCSS][tailwindcss.com]][tailwindcss-url]
+[![Foundry][https://getfoundry.sh//]][foundry-url]
+[![Hardhat][https://hardhat.org/]][hardhat-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
 
 ## Getting Started
 
@@ -44,22 +112,20 @@ You will need to install [Foundry](https://book.getfoundry.sh/getting-started/in
 
 ## Start the application
 
-<img width="450" alt="starter-app-screenshot" src="https://user-images.githubusercontent.com/389705/225778318-4e6fb8c0-c5d7-4aea-9fc2-2efd17ca435c.png">
-
 1. Clone/fork the optimism-starter repo
 
    ```sh
-   git clone https://github.com/ethereum-optimism/optimism-starter.git
+   git clone https://github.com/0xartem/bounty-attestor.git
    ```
 
-1. Install the necessary node packages:
+2. Install the necessary node packages:
 
    ```sh
-   cd optimism-starter
+   cd bounty-attestor
    npm install
    ```
 
-1. Start the frontend with `npm run dev`
+3. Start the frontend with `npm run dev`
 
    ```sh
    npm run dev
@@ -67,14 +133,9 @@ You will need to install [Foundry](https://book.getfoundry.sh/getting-started/in
 
    If you get errors during this step, you might need to [update your Foundry to the latest version](#install-foundry).
 
-1. Open [localhost:5173](http://localhost:5173) in your browser.
+4. Open [localhost:5173](http://localhost:5173) in your browser.
 
    Once the webpage has loaded, changes made to files inside the `src/` directory (e.g. `src/App.tsx`) will automatically update the webpage.
-
-See below for general usage instructions or [FAQ](./FAQ.md) for answers to general questions such as:
-
-- [Where to get goerli eth]().
-- [How to deploy a public version of your app](./FAQ.md#how-do-i-deploy-this).
 
 ## Generate ABIs & React Hooks
 
@@ -134,8 +195,16 @@ You will first need to set up your `.env` to tell Forge where to deploy your con
 
 You can now deploy your contract!
 
+For local deployment
+
 ```sh
-npm run deploy
+npm run deploy:bounty:local
+```
+
+For live deployment
+
+```sh
+npm run deploy:bounty
 ```
 
 ## Developing with Anvil (Optimism Mainnet Fork)
@@ -150,57 +219,82 @@ Run the command:
 npm run dev:foundry
 ```
 
+or
+
+```sh
+npm run dev:hardhat
+```
+
 This will:
 
 - Start a vite dev server,
 - Start the `@wagmi/cli` in [**watch mode**](https://wagmi.sh/cli/commands/generate#options) to listen to changes in our contracts, and instantly generate code,
 - Start an Anvil instance (Goerli Optimism Fork) on an RPC URL.
 
-### Deploy our contract to Anvil
+### Deploy our contract to Anvil or Hardhat
 
-Now that we have an Anvil instance up and running, let's deploy our smart contract to the Anvil network:
+Now that we have an Anvil or Hardhat instance up and running, let's deploy our smart contract to the Anvil or Hardhat network:
 
 ```sh
-npm run deploy:anvil
+npm run deploy:local
 ```
 
-## Start developing
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Now that your contract has been deployed to Anvil, you can start playing around with your contract straight from the web interface!
+<!-- CONTRIBUTING -->
 
-Head to [localhost:5173](http://localhost:5173) in your browser, connect your wallet, and try increment a counter on the Foundry chain.   Use the generated code in `src/generated.ts` to do it and follow the [Attestooooor](https://github.com/ethereum-optimism/optimism-starter/blob/main/src/components/Attestoooooor.tsx) component as an example
+## Contributing
 
-> Tip: If you import an Anvil private key into your browser wallet (MetaMask, Coinbase Wallet, etc) – you will have 10,000 ETH to play with 😎. The private key is found in the terminal under "Private Keys" when you start up an Anvil instance with `npm run dev:foundry`.
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-## Attestation station
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This starterkit comes preloaded with tools for working with the attestation station!
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[@eth-optimism/atst](https://github.com/ethereum-optimism/optimism/blob/willc/alpha-final/packages/atst/docs/sdk.md) - Is a typescript sdk for easily interacting with the attestation in vanilla javascript and react. The react hooks for your convenience are also in this package at `src/generated.ts`
+<!-- LICENSE -->
 
-Also included is a [CLI](https://github.com/ethereum-optimism/optimism/blob/willc/alpha-final/packages/atst/docs/cli.md) for interacting with the attestation. To get started run
+## License
 
-```bash
-npx atst --help
-```
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-![preview](https://user-images.githubusercontent.com/35039927/222435290-0271bc85-1e62-4d0a-b539-084af1e22ded.gif)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Alternatives
+<!-- CONTACT -->
 
-Looking to use burner wallets? Prefer hardhat? Prefer NEXT.js? Check out these amazing alternatives:
+## Contact
 
-- [create wagmi cli](https://wagmi.sh/cli/create-wagmi) - A flexible cli with many templates (this starterkit was started from vite-react-cli-foundry)
-- [scaffold-eth](https://github.com/scaffold-eth/se-2) - The new 2nd version of a popular NEXT.js based starter including hardhat, burner wallets, great documentation, and an active telegram for support
-- [Awesome wagmi](https://github.com/wagmi-dev/awesome-wagmi#templates) - Has other alternative examples
-- [Create Eth App](https://usedapp-docs.netlify.app/docs/Getting%20Started/Create%20Eth%20App) - Uses a wagmi alternative called useDapp that is used at OP Labs
+Project Link: [https://github.com/0xartem/bounty-attestor](https://github.com/0xartem/bounty-attestor)
 
-## Learn more
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-To learn more about [Optimism](https://optimism.io), [Vite](https://vitejs.dev/), [Foundry](https://book.getfoundry.sh/), [Rainbow kit](https://www.rainbowkit.com/) or [wagmi](https://wagmi.sh), check out the following resources:
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-- [Foundry Documentation](https://book.getfoundry.sh/) – learn more about the Foundry stack (Anvil, Forge, etc).
-- [wagmi Documentation](https://wagmi.sh) – learn about wagmi Hooks and API.
-- [wagmi Examples](https://wagmi.sh/examples/connect-wallet) – a suite of simple examples using wagmi.
-- [@wagmi/cli Documentation](https://wagmi.sh/cli) – learn more about the wagmi CLI.
-- [Vite Documentation](https://vitejs.dev/) – learn about Vite features and API.
+[contributors-shield]: https://img.shields.io/github/contributors/0xartem/bounty-attestor?color=blue&style=for-the-badge
+[contributors-url]: https://github.com/0xartem/bounty-attestor/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/0xartem/bounty-attestor.svg?style=for-the-badge
+[forks-url]: https://github.com/0xartem/bounty-attestor/network/members
+[stars-shield]: https://img.shields.io/github/stars/0xartem/bounty-attestor.svg?style=for-the-badge
+[stars-url]: https://github.com/0xartem/bounty-attestor/stargazers
+[issues-shield]: https://img.shields.io/github/issues/0xartem/bounty-attestor.svg?style=for-the-badge
+[issues-url]: https://github.com/0xartem/bounty-attestor/issues
+[license-shield]: https://img.shields.io/github/license/0xartem/bounty-attestor.svg?style=for-the-badge
+[license-url]: https://github.com/0xartem/bounty-attestor/blob/main/LICENSE.txt
+[product-screenshot]: docs/images/my-attestations.png
+[Vitejs.dev]: https://img.shields.io/badge/Vitejs-000000?style=for-the-badge&logo=vite&logoColor
+[Vite-url]: https://vitejs.dev/
+[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
+[solidity.org]: https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white
+[solidity-url]: https://soliditylang.org/
+[apollographql.com]: https://img.shields.io/badge/Apollo%20GraphQL-E10098?style=for-the-badge&logo=Apollo-GraphQL&logoColor=311C87
+[apollographql-url]: https://www.apollographql.com/
+[tailwindcss.com]: https://img.shields.io/badge/Tailwind%20CSS-053766?style=for-the-badge&logo=Tailwind%20CSS&logoColor=06B6D4
+[tailwindcss-url]: https://www.tailwindcss.com/
+[tailwindcss.com]: https://img.shields.io/badge/Tailwind%20CSS-053766?style=for-the-badge&logo=Hardhat&logoColor=06B6D4
+[hardhat-url]: https://hardhat.org
