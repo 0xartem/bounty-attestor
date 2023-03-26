@@ -12,7 +12,7 @@ const Home = () => {
           <h1 className="text-5xl font-bold">Bounty Attestor</h1>
           <p className="py-6">
             Bounty Attestor is built with Optimism Attestation Station to
-            endorse bounty winners. The winners' addresses can be endorsed by
+            endorse bounty winners. The addresses of winners can be endorsed by
             the event organizers or bounty issuers - sponsors. If you won a
             bounty you can self-attest your prize, which then allows observers
             to do background check.

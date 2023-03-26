@@ -1,6 +1,7 @@
 import { createKey, parseString } from "@eth-optimism/atst";
 import { useLoaderData } from "react-router-dom";
 import { useAccount } from "wagmi";
+import BountyAttestationCard from "../components/BountyAttestationCard";
 import { useAttestationStationAttestations } from "../generated";
 import { createRawKey, parseRawValue } from "../utils/bounty-attestors-utils";
 
@@ -46,7 +47,7 @@ const MyAttestations = () => {
 
   const { address } = useAccount();
 
-  const bounties: BountyCardProps[] = [];
+  const bounties: BountyProps[] = [];
   data.map((event) => {
     event.issuers.map((issuer) => {
       issuer.bountyNames.map((bountyName) => {
@@ -64,10 +65,7 @@ const MyAttestations = () => {
           console.log("attestation", attestation);
           const rawStr = parseString(attestation);
           const valueParts = parseRawValue(rawStr);
-          bounties.push({
-            bounty: { ...keyParts, ...valueParts, receiver: address! },
-            selfAttestation: true,
-          });
+          bounties.push({ ...keyParts, ...valueParts, receiver: address! });
         }
       });
     });
@@ -76,14 +74,9 @@ const MyAttestations = () => {
   console.log("bounties", bounties);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-10 items-center mt-10">
       {bounties.map((bounty) => (
-        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Current Attestation</h2>
-            <p>{JSON.stringify(bounty)}</p>
-          </div>
-        </div>
+        <BountyAttestationCard bounty={bounty} selfAttestation={true} />
       ))}
     </div>
   );
