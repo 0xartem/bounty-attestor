@@ -15,16 +15,7 @@ import {
   usePrepareAttestationStationAttest,
   useAttestationStationAttestations,
 } from "../generated";
-import { createRawKey } from "../utils/bounty-attestors-utils";
-
-interface Props {
-  event: string;
-  issuer: string;
-  bountyName: string;
-  receiver: `0x${string}`;
-  amountUsd: number;
-  rewardTx: string;
-}
+import { createRawKey, createRawValue } from "../utils/bounty-attestors-utils";
 
 export const BountySelfAttestor = ({
   event,
@@ -33,11 +24,11 @@ export const BountySelfAttestor = ({
   receiver,
   amountUsd,
   rewardTx,
-}: Props) => {
+}: BountyProps) => {
   const { address } = useAccount();
 
-  const rawKey = createRawKey(event, issuer, bountyName);
-  const value = `${bountyName}.${amountUsd}.${rewardTx}`;
+  const rawKey = createRawKey({ event, issuer, bountyName });
+  const value = createRawValue({ bountyName, amountUsd, rewardTx });
   // const [value, setValue] = useState<string>(`${amountUsd}.${rewardTx}`);
 
   const key = createKey(rawKey);

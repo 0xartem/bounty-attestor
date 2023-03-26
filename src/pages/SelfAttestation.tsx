@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
+import { useAccount } from "wagmi";
 import { BountySelfAttestor } from "../components";
 
 interface EventInfo {
@@ -42,18 +43,15 @@ const SelfAttestation = () => {
   const data = useLoaderData() as EventInfo[];
   console.log("Data", data);
 
+  const { address } = useAccount();
+
   const [event, setEvent] = useState<string>("unknown");
   const [issuer, setIssuer] = useState<string>("unknown");
   const [bountyName, setBountyName] = useState<string>("unknown");
   const [prize, setPrize] = useState<number>(0);
-  const [receiver, setReceiver] = useState<`0x${string}`>(
-    "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
-  );
   const [rewardTx, setRewardTx] = useState<`0x${string}`>(
     "0xf50dd4058be9c65f7831c34a1676ab7f2132436e3e0163b716651006e13a1da6",
   );
-
-  data.find((val) => val.event === event);
 
   return (
     <>
@@ -116,20 +114,6 @@ const SelfAttestation = () => {
             </select>
           </div>
           <label className="label">
-            <span className="label-text">Enter attestable address</span>
-          </label>
-          <label className="input-group">
-            <span>Receiver</span>
-            <input
-              type="text"
-              id="receiver"
-              placeholder="0x..."
-              defaultValue={receiver}
-              className="input input-bordered"
-              onChange={(e) => setReceiver(e.target.value as `0x${string}`)}
-            />
-          </label>
-          <label className="label">
             <span className="label-text">Enter amount</span>
           </label>
           <label className="input-group">
@@ -164,7 +148,7 @@ const SelfAttestation = () => {
         event={event}
         issuer={issuer}
         bountyName={bountyName}
-        receiver={receiver}
+        receiver={address!}
         amountUsd={prize}
         rewardTx={rewardTx}
       />

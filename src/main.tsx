@@ -18,6 +18,9 @@ import AuthorizedAttestation, {
 import SelfAttestation, {
   loader as selfAttestationLoader,
 } from "./pages/SelfAttestation";
+import MyAttestations, {
+  loader as myAttestationsLoader,
+} from "./pages/MyAttestations";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +32,11 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
           { index: true, element: <Home /> },
-          { path: "home", element: <Home /> },
+          {
+            path: "my-attestations",
+            element: <MyAttestations />,
+            loader: myAttestationsLoader,
+          },
           {
             path: "authorized-attestation",
             element: <AuthorizedAttestation />,

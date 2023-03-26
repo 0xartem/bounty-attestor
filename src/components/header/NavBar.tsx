@@ -7,8 +7,8 @@ const NavBar = () => {
       : "hover:text-accent active:bg-neutral rounded-md p-2";
   return (
     <nav className="flex gap-6">
-      <NavLink className={evaluateNavLinkClass} to={"/home"}>
-        Home
+      <NavLink className={evaluateNavLinkClass} to={"/my-attestations"}>
+        My Attestations
       </NavLink>
       <NavLink className={evaluateNavLinkClass} to={"/authorized-attestation"}>
         Authorized Attestation

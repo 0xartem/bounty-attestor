@@ -15,17 +15,9 @@ import {
 } from "../generated";
 import {
   createRawKey,
+  createRawValue,
   normalizeKeyPart,
 } from "../utils/bounty-attestors-utils";
-
-interface Props {
-  event: string;
-  issuer: string;
-  bountyName: string;
-  receiver: `0x${string}`;
-  amountUsd: number;
-  rewardTx: string;
-}
 
 export const BountyAuthAttestor = ({
   event,
@@ -34,7 +26,7 @@ export const BountyAuthAttestor = ({
   receiver,
   amountUsd,
   rewardTx,
-}: Props) => {
+}: BountyProps) => {
   const { address } = useAccount();
   let authGroupOrIssuer: `0x${string}` | undefined;
 
@@ -70,8 +62,8 @@ export const BountyAuthAttestor = ({
     );
   }
 
-  const rawKey = createRawKey(event, issuer, bountyName);
-  const value = `${bountyName}.${amountUsd}.${rewardTx}`;
+  const rawKey = createRawKey({ event, issuer, bountyName });
+  const value = createRawValue({ bountyName, amountUsd, rewardTx });
   // const [value, setValue] = useState<string>(`${amountUsd}.${rewardTx}`);
 
   const key = createKey(rawKey);

@@ -53,8 +53,6 @@ const AuthorizedAttestation = () => {
     "0xf50dd4058be9c65f7831c34a1676ab7f2132436e3e0163b716651006e13a1da6",
   );
 
-  data.find((val) => val.event === event);
-
   return (
     <>
       <Form method="post">
