@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { ActionFunction, Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import { BountySelfAttestor } from "../components";
 
 interface EventInfo {
@@ -37,21 +37,6 @@ export const loader = async () => {
       ],
     },
   ] as EventInfo[];
-};
-
-export const action: ActionFunction = async ({ request, params }) => {
-  console.log("Action!");
-  console.log("request", request);
-  console.log("Params", params);
-  return {
-    event: "Scaling Ethereum 2023",
-    issuer: "Optimism",
-    bountyName: "$10,000 Hack the Stack - Deploy your OP Stack-Powered Rollup",
-    receiver: "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
-    amountUsd: 2000,
-    rewardTx:
-      "0xf50dd4058be9c65f7831c34a1676ab7f2132436e3e0163b716651006e13a1da6",
-  };
 };
 
 const SelfAttestation = () => {

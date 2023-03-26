@@ -15,7 +15,6 @@ import ErrorPage from "./pages/ErrorPage";
 import AuthorizedAttestation from "./pages/AuthorizedAttestation";
 import SelfAttestation, {
   loader as selfAttestationLoader,
-  action as selfAttestationAction,
 } from "./pages/SelfAttestation";
 
 const router = createBrowserRouter([
@@ -37,7 +36,6 @@ const router = createBrowserRouter([
             path: "self-attestation",
             element: <SelfAttestation />,
             loader: selfAttestationLoader,
-            action: selfAttestationAction,
           },
         ],
       },
