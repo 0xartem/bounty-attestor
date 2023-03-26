@@ -46,9 +46,7 @@ const AuthorizedAttestation = () => {
   const [issuer, setIssuer] = useState<string>("unknown");
   const [bountyName, setBountyName] = useState<string>("unknown");
   const [prize, setPrize] = useState<number>(0);
-  const [receiver, setReceiver] = useState<`0x${string}`>(
-    "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
-  );
+  const [receiver, setReceiver] = useState<`0x${string}`>();
   const [rewardTx, setRewardTx] = useState<`0x${string}`>(
     "0x0641e376c5004955aa353c3955a2d87ee7c179999c81c5550b129cd26f829821",
   );

@@ -30,10 +30,15 @@ export default defineConfig({
         AttestationStation: {
           [chains.optimism.id]: ATTESTATION_STATION_ADDRESS,
           [chains.optimismGoerli.id]: ATTESTATION_STATION_ADDRESS,
-          [chains.foundry.id]: "0x5FbDB2315678afecb367f032d93F642f64180aa3", //ATTESTATION_STATION_ADDRESS,
+          // Not Forked Anvil or Hardhat Node
+          [chains.foundry.id]: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          // Forked Anvil
+          // [chains.foundry.id]: ATTESTATION_STATION_ADDRESS,
         },
         BountiesAttestor: {
           [chains.foundry.id]: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          [chains.optimismGoerli.id]:
+            "0x7ae3772901ea231949423089d324f1c088172C5e",
         },
       },
     }),

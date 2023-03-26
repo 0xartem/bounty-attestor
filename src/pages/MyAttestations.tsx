@@ -1,6 +1,6 @@
 import { createKey, parseString } from "@eth-optimism/atst";
 import { useLoaderData } from "react-router-dom";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import BountyAttestationCard from "../components/BountyAttestationCard";
 import {
   bountiesAttestorAddress,
@@ -48,6 +48,7 @@ const MyAttestations = () => {
   const data = useLoaderData() as EventInfo[];
   console.log("Data", data);
 
+  const { chain } = useNetwork();
   const { address } = useAccount();
 
   const bountyCards: BountyCardProps[] = [];
@@ -88,7 +89,13 @@ const MyAttestations = () => {
         const rawKey = createRawKey(keyParts);
         const key = createKey(rawKey);
         const { data: attestation } = useAttestationStationAttestations({
-          args: [bountiesAttestorAddress[31337], address!, key],
+          args: [
+            bountiesAttestorAddress[
+              chain?.id as keyof typeof bountiesAttestorAddress
+            ],
+            address!,
+            key,
+          ],
         });
         if (attestation && attestation !== "0x") {
           console.log("attestation auth", attestation);

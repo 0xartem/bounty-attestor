@@ -29,7 +29,9 @@ export const BountyAuthAttestor = ({
   amountUsd,
   rewardTx,
 }: BountyProps) => {
+  const { chain } = useNetwork();
   const { address } = useAccount();
+
   let authGroupOrIssuer: `0x${string}` | undefined;
 
   const normalizedEvent = normalizeKeyPart(event);
@@ -81,7 +83,13 @@ export const BountyAuthAttestor = ({
   });
 
   const { refetch, data: attestation } = useAttestationStationAttestations({
-    args: [bountiesAttestorAddress[31337], receiver, key],
+    args: [
+      bountiesAttestorAddress[
+        chain?.id as keyof typeof bountiesAttestorAddress
+      ],
+      receiver,
+      key,
+    ],
   });
 
   const { isLoading } = useWaitForTransaction({
