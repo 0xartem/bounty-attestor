@@ -43,16 +43,12 @@ export const BountyAuthAttestor = ({
   const { data: authorizedEvent } = useBountiesAttestorIsAuthorized({
     args: [authGroup, address!],
   });
-  console.log("authorizedEvent", authorizedEvent);
-  console.log("authGroup", authGroup);
 
   const normalizedIssuer = normalizeKeyPart(issuer);
   const authIssuer = createKey(normalizedIssuer);
   const { data: authorizedIssuer } = useBountiesAttestorIsAuthorized({
     args: [authIssuer, address!],
   });
-  console.log("authorizedIssuer", authorizedIssuer);
-  console.log("authIssuer", authIssuer);
 
   if (authorizedEvent) {
     authGroupOrIssuer = authGroup;
