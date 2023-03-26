@@ -4,8 +4,8 @@ pragma solidity ^0.8.13;
 import {Script} from "forge-std/Script.sol";
 import "forge-std/console.sol";
 
-import {AttestationStation} from "../src/AttestationStation.sol";
-import {BountiesAttestor} from "../src/BountiesAttestor.sol";
+import {AttestationStation} from "../AttestationStation.sol";
+import {BountiesAttestor} from "../BountiesAttestor.sol";
 
 /**
  * @title BountiesAttestorScriptDeployLocal
