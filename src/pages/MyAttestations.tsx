@@ -2,7 +2,10 @@ import { createKey, parseString } from "@eth-optimism/atst";
 import { useLoaderData } from "react-router-dom";
 import { useAccount } from "wagmi";
 import BountyAttestationCard from "../components/BountyAttestationCard";
-import { useAttestationStationAttestations } from "../generated";
+import {
+  bountiesAttestorAddress,
+  useAttestationStationAttestations,
+} from "../generated";
 import { createRawKey, parseRawValue } from "../utils/bounty-attestors-utils";
 
 interface EventInfo {
@@ -47,7 +50,7 @@ const MyAttestations = () => {
 
   const { address } = useAccount();
 
-  const bounties: BountyProps[] = [];
+  const bountyCards: BountyCardProps[] = [];
   data.map((event) => {
     event.issuers.map((issuer) => {
       issuer.bountyNames.map((bountyName) => {
@@ -62,21 +65,53 @@ const MyAttestations = () => {
           args: [address!, address!, key],
         });
         if (attestation && attestation !== "0x") {
-          console.log("attestation", attestation);
+          console.log("attestation self", attestation);
           const rawStr = parseString(attestation);
           const valueParts = parseRawValue(rawStr);
-          bounties.push({ ...keyParts, ...valueParts, receiver: address! });
+          bountyCards.push({
+            bounty: { ...keyParts, ...valueParts, receiver: address! },
+            selfAttestation: true,
+          });
         }
       });
     });
   });
 
-  console.log("bounties", bounties);
+  data.map((event) => {
+    event.issuers.map((issuer) => {
+      issuer.bountyNames.map((bountyName) => {
+        const keyParts = {
+          event: event.event,
+          issuer: issuer.name,
+          bountyName,
+        };
+        const rawKey = createRawKey(keyParts);
+        const key = createKey(rawKey);
+        const { data: attestation } = useAttestationStationAttestations({
+          args: [bountiesAttestorAddress[31337], address!, key],
+        });
+        if (attestation && attestation !== "0x") {
+          console.log("attestation auth", attestation);
+          const rawStr = parseString(attestation);
+          const valueParts = parseRawValue(rawStr);
+          bountyCards.push({
+            bounty: { ...keyParts, ...valueParts, receiver: address! },
+            selfAttestation: false,
+          });
+        }
+      });
+    });
+  });
+
+  console.log("bounties", bountyCards);
 
   return (
     <div className="flex flex-col gap-10 items-center mt-10">
-      {bounties.map((bounty) => (
-        <BountyAttestationCard bounty={bounty} selfAttestation={true} />
+      {bountyCards.map((bountyCard) => (
+        <BountyAttestationCard
+          bounty={bountyCard.bounty}
+          selfAttestation={bountyCard.selfAttestation}
+        />
       ))}
     </div>
   );

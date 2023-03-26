@@ -1,7 +1,9 @@
-const BountyAttestationCard = ({
+const BountyAttestationCardAction = ({
   bounty,
   selfAttestation,
-}: BountyCardProps) => {
+  attestationDisabled,
+  write,
+}: CreateBountyCardProps) => {
   return (
     <div className="card w-96 bg-base-100 shadow-lg hover:shadow-2xl indicator">
       {!selfAttestation && (
@@ -19,7 +21,7 @@ const BountyAttestationCard = ({
       </figure>
       <div className="card-body">
         <h2 className="card-title">
-          Bounty Winner
+          Attestation
           <div className="badge badge-info">{bounty.event}</div>
         </h2>
         <p>{bounty.bountyName}</p>
@@ -41,9 +43,18 @@ const BountyAttestationCard = ({
             )}`}
           </a>
         </div>
+        <div className="flex justify-end">
+          <button
+            className="btn btn-accent"
+            disabled={attestationDisabled}
+            onClick={() => write?.()}
+          >
+            Attest
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default BountyAttestationCard;
+export default BountyAttestationCardAction;

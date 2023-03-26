@@ -15,7 +15,13 @@ import {
   usePrepareAttestationStationAttest,
   useAttestationStationAttestations,
 } from "../generated";
-import { createRawKey, createRawValue } from "../utils/bounty-attestors-utils";
+import {
+  createRawKey,
+  createRawValue,
+  parseRawValue,
+} from "../utils/bounty-attestors-utils";
+import BountyAttestationCard from "./BountyAttestationCard";
+import BountyAttestationCardAction from "./BountyAttestationCardAction";
 
 export const BountySelfAttestor = ({
   event,
@@ -46,6 +52,13 @@ export const BountySelfAttestor = ({
   const { refetch, data: attestation } = useAttestationStationAttestations({
     args: [address!, receiver, key],
   });
+  let onchainBounty: BountyProps | undefined;
+  if (attestation && attestation !== "0x") {
+    console.log("attestation", attestation);
+    const rawStr = parseString(attestation);
+    const valueParts = parseRawValue(rawStr);
+    onchainBounty = { event, issuer, ...valueParts, receiver };
+  }
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
@@ -55,29 +68,18 @@ export const BountySelfAttestor = ({
   return (
     <div>
       <div className="flex flex-col gap-4">
-        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">New Winner Attestation</h2>
-            <p>Current key: {rawKey}</p>
-            <p>Current value: {value}</p>
-            <p>Current receiver: {receiver}</p>
-            <div className="card-actions justify-end">
-              <button
-                className="btn btn-accent"
-                disabled={!write || isLoading}
-                onClick={() => write?.()}
-              >
-                Attest
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Current Attestation</h2>
-            <p>{attestation ? parseString(attestation) : "none"}</p>
-          </div>
-        </div>
+        <BountyAttestationCardAction
+          bounty={{ event, issuer, bountyName, receiver, amountUsd, rewardTx }}
+          selfAttestation={true}
+          attestationDisabled={!write || isLoading}
+          write={write}
+        />
+        {/* {onchainBounty && (
+          <BountyAttestationCard
+            bounty={onchainBounty}
+            selfAttestation={true}
+          />
+        )} */}
       </div>
       {isLoading && <ProcessingMessage hash={data?.hash} />}
     </div>

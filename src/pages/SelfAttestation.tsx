@@ -54,13 +54,13 @@ const SelfAttestation = () => {
   );
 
   return (
-    <>
+    <div className="flex flex-col gap-10 items-center mt-10">
       <Form method="post">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Choose event</span>
           </label>
-          <div className="input-group">
+          <div className="input-group w-96">
             <span>Event</span>
             <select
               className="select select-bordered"
@@ -143,7 +143,6 @@ const SelfAttestation = () => {
           </label>
         </div>
       </Form>
-      <hr />
       <BountySelfAttestor
         event={event}
         issuer={issuer}
@@ -152,8 +151,7 @@ const SelfAttestation = () => {
         amountUsd={prize}
         rewardTx={rewardTx}
       />
-      <hr />
-    </>
+    </div>
   );
 };
 

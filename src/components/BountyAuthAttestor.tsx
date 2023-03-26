@@ -18,6 +18,8 @@ import {
   createRawValue,
   normalizeKeyPart,
 } from "../utils/bounty-attestors-utils";
+import BountyAttestationCardAction from "./BountyAttestationCardAction";
+import BountyAttestationCard from "./BountyAttestationCard";
 
 export const BountyAuthAttestor = ({
   event,
@@ -90,29 +92,18 @@ export const BountyAuthAttestor = ({
   return (
     <div>
       <div className="flex flex-col gap-4">
-        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">New Winner Attestation</h2>
-            <p>Current key: {rawKey}</p>
-            <p>Current value: {value}</p>
-            <p>Current receiver: {receiver}</p>
-            <div className="card-actions justify-end">
-              <button
-                className="btn btn-accent"
-                disabled={!authGroupOrIssuer || !write || isLoading}
-                onClick={() => write?.()}
-              >
-                Attest
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="card w-2/3 bg-primary text-primary-content shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Current Attestation</h2>
-            <p>{attestation ? parseString(attestation) : "none"}</p>
-          </div>
-        </div>
+        <BountyAttestationCardAction
+          bounty={{ event, issuer, bountyName, receiver, amountUsd, rewardTx }}
+          selfAttestation={false}
+          attestationDisabled={!write || isLoading}
+          write={write}
+        />
+        {/* {onchainBounty && (
+          <BountyAttestationCard
+            bounty={onchainBounty}
+            selfAttestation={true}
+          />
+        )} */}
       </div>
       {isLoading && <ProcessingMessage hash={data?.hash} />}
     </div>

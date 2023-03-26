@@ -54,7 +54,7 @@ const AuthorizedAttestation = () => {
   );
 
   return (
-    <>
+    <div className="flex flex-col gap-10 items-center mt-10">
       <Form method="post">
         <div className="form-control">
           <label className="label">
@@ -157,7 +157,6 @@ const AuthorizedAttestation = () => {
           </label>
         </div>
       </Form>
-      <hr />
       <BountyAuthAttestor
         event={event}
         issuer={issuer}
@@ -166,8 +165,7 @@ const AuthorizedAttestation = () => {
         amountUsd={prize}
         rewardTx={rewardTx}
       />
-      <hr />
-    </>
+    </div>
   );
 };
 
