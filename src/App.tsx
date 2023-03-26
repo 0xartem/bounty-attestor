@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useAccount } from "wagmi";
 import Header from "./components/header/Header";
+import Home from "./pages/Home";
 
 const App = () => {
   /**
@@ -18,6 +19,7 @@ const App = () => {
           <Outlet />
         </div>
       )}
+      {!isConnected && <Home />}
     </>
   );
 };
