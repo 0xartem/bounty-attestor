@@ -50,7 +50,7 @@ const AuthorizedAttestation = () => {
     "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
   );
   const [rewardTx, setRewardTx] = useState<`0x${string}`>(
-    "0xf50dd4058be9c65f7831c34a1676ab7f2132436e3e0163b716651006e13a1da6",
+    "0x0641e376c5004955aa353c3955a2d87ee7c179999c81c5550b129cd26f829821",
   );
 
   return (
