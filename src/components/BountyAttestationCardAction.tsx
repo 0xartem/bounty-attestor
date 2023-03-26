@@ -1,3 +1,5 @@
+import mainLogo from "../assets/bounty-attestor.jpg";
+
 const BountyAttestationCardAction = ({
   bounty,
   selfAttestation,
@@ -17,7 +19,7 @@ const BountyAttestationCardAction = ({
         </span>
       )}
       <figure>
-        <img src="/src/assets/bounty-attestor.jpg" alt="Image" />
+        <img src={mainLogo} alt="Image" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">

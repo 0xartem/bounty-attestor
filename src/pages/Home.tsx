@@ -1,13 +1,11 @@
 import { NavLink } from "react-router-dom";
+import mainLogo from "../assets/bounty-attestor.jpg";
 
 const Home = () => {
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
-        <img
-          src="/src/assets/bounty-attestor.jpg"
-          className="max-w-sm rounded-lg shadow-2xl"
-        />
+        <img src={mainLogo} className="max-w-sm rounded-lg shadow-2xl" />
         <div>
           <h1 className="text-5xl font-bold">Bounty Attestor</h1>
           <p className="py-6">
